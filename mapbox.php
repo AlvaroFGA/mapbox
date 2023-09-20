@@ -61,6 +61,21 @@ $coordenadas = obtenerCoordenadas($idSeleccionado);
 ?>
     var latitud = <?php echo $coord[0]; ?>;
     var longitud = <?php echo $coord[1]; ?>;
+    var id = <?php echo $idSeleccionado; ?>;
+    
+    function getLabelContent(id) {
+            switch (id) {
+                case 1:
+                    return 'Marcelo';
+                case 2:
+                    return 'Esteban';
+                case 3:
+                    return 'Omar';
+                default:
+                    return 'Sin etiqueta';
+            }
+        }
+
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v11', // Puedes cambiar el estilo del mapa
@@ -70,8 +85,12 @@ $coordenadas = obtenerCoordenadas($idSeleccionado);
 
         // Añadir marcador
         
+        new mapboxgl.Popup()
+            .setLngLat([longitud, latitud]) // Coordenadas del marcador
+            .setHTML(getLabelContent(id)) // Contenido de la etiqueta basado en 'id'
+            .addTo(map);
+
             <?php
-         
     foreach ($coordenadas as $coord) {
         echo "new mapboxgl.Marker().setLngLat([" . $coord[1] . ", " . $coord[0] . "]).addTo(map);\n";
     }
