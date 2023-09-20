@@ -56,18 +56,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiNGx2YXJvLWc0IiwiYSI6ImNsa3Y3aGZuejBxYTYzbG1xemxkemFvbXYifQ.iFYtfFcNe7flCJWvzOG8lA'; // Reemplaza con tu propio token de Mapbox
-
+<?php
+$coordenadas = obtenerCoordenadas($idSeleccionado);
+?>
+    var latitud = <?php echo $coord[0]; ?>;
+    var longitud = <?php echo $coord[1]; ?>;
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v11', // Puedes cambiar el estilo del mapa
-            center: [ -68.1198257, -16.5036101], // Coordenadas de centro del mapa (longitud, latitud)
-            zoom: 17
+            center: [ longitud, latitud], // Coordenadas de centro del mapa (longitud, latitud)
+            zoom: 15
             });
 
         // Añadir marcador
         
             <?php
-         $coordenadas = obtenerCoordenadas($idSeleccionado);
+         
     foreach ($coordenadas as $coord) {
         echo "new mapboxgl.Marker().setLngLat([" . $coord[1] . ", " . $coord[0] . "]).addTo(map);\n";
     }
