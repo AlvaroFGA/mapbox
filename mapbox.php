@@ -63,26 +63,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             center: [ -68.1198257, -16.5036101], // Coordenadas de centro del mapa (longitud, latitud)
             zoom: 17
             });
-            function cargarMarcadores() {
+
+        // Añadir marcador
+        
             <?php
-            $coordenadas = obtenerCoordenadas($idSeleccionado);
-            foreach ($coordenadas as $coord) {
-                echo "new mapboxgl.Marker().setLngLat([" . $coord[1] . ", " . $coord[0] . "]).addTo(map);\n";
-            }
-            ?>
+         $coordenadas = obtenerCoordenadas($idSeleccionado);
+    foreach ($coordenadas as $coord) {
+        echo "new mapboxgl.Marker().setLngLat([" . $coord[1] . ", " . $coord[0] . "]).addTo(map);\n";
+    }
+    ?>
+    </script>
+ <script>
+        function reloadPage() {
+            location.reload();
         }
 
-        // Llama a la función para cargar los marcadores al cargar la página
-        cargarMarcadores();
-
-        // Función para actualizar los marcadores cada 5 segundos
-        function actualizarMarcadores() {
-            cargarMarcadores();
-            setTimeout(actualizarMarcadores, 5000); // Llama a esta función nuevamente después de 5 segundos
-        }
-
-        // Inicia la actualización de los marcadores
-        setTimeout(actualizarMarcadores, 5000);
+        setTimeout(reloadPage, 5000); 
     </script>
 </body>
 </html>
